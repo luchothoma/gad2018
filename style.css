@@ -1,0 +1,95 @@
+:root {
+  --pokemonSize: 80px;
+}
+
+body {
+  background: #eee;
+  margin: 0;
+  height: 100vh;
+  font-family: 'Bebas Neue', sans-serif;
+}
+
+h2 {
+  margin: 0;
+  font-size: 2em;
+  text-align: center;
+  position: fixed;
+  width: 50%;
+  top: 1em;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+#busqueda,
+#resultados {
+  height: 100%;
+  width: 50%;
+  overflow-y: scroll;
+}
+
+#busqueda {
+  background: #fff;
+}
+
+#resultados {
+
+}
+
+.lista-pokemon {
+  list-style: none;
+  margin: 5em 0 6em 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.lista-pokemon li input[type="radio"] {
+  display: none;
+}
+
+.lista-pokemon li label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  margin: 0.5em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.lista-pokemon li label img {
+  width: var(--pokemonSize);
+  height: var(--pokemonSize);
+}
+
+.lista-pokemon li label:hover {
+  background: #eee; 
+}
+
+.lista-pokemon li input[type="radio"]:checked + label {
+  background: #82dcff;
+}
+
+#buscar {
+  font-size: 2em;
+  font-family: inherit;
+  position: absolute;
+  bottom: 1em;
+  font-weight: bold;
+  background: steelblue;
+  padding: .4em;
+  color: #000;
+  text-decoration: none;
+  bottom: 0;
+  left: 0;
+}
+
+#buscar:hover {
+  background: black;
+  color: #eee;
+}

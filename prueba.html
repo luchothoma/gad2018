@@ -6,7 +6,7 @@
 <script>
     var data = {};
 $(document).ready(function(){
-    $.getJSON( "http://gad2018.test/histogramaNormalizado2.json", function( response ) {
+    $.getJSON( "http://localhost/gad2018/histogramaNormalizado2.json", function( response ) {
       console.log(response);
       data = response;
    });
@@ -26,8 +26,8 @@ $(document).ready(function(){
       resDiv.empty();
       var img = data[indexOfimage];
       var result = [];
-    var img_png = 'http://gad2018.test/images/pokemons_db/'+img.name+'.png';
-    var img_jpg = 'http://gad2018.test/images/pokemons_db/'+img.name+'.jpg';
+    var img_png = 'http://localhost/gad2018/images/pokemons_db/'+img.name+'.png';
+    var img_jpg = 'http://localhost/gad2018/images/pokemons_db/'+img.name+'.jpg';
     resDiv.load(img_png, function(response, status, xhr) {
     var imgurl = "";
     if (status == "error") 
@@ -65,8 +65,8 @@ $(document).ready(function(){
       });
 
       result.forEach((elem,ind) => {
-        var img_png = 'http://gad2018.test/images/pokemons_db/'+elem.name+'.png';
-        var img_jpg = 'http://gad2018.test/images/pokemons_db/'+elem.name+'.jpg';
+        var img_png = 'http://localhost/gad2018/images/pokemons_db/'+elem.name+'.png';
+        var img_jpg = 'http://localhost/gad2018/images/pokemons_db/'+elem.name+'.jpg';
         resDiv.load(img_png, function(response, status, xhr) {
         var imgurl = "";
         if (status == "error") 
