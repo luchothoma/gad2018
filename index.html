@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Búsqueda de Pokémon</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <section id="busqueda">
+      <ul class="lista-pokemon">
+        <li v-for="name in imagesFilenames" :key="name">
+          <input type="radio" :id="name" name="pokemon" :value="name">
+          <label :for="name">
+            <img :src="`images/pokemons_db/${name}.png`">
+            {{ name }}
+          </label>
+        </li>
+      </ul>
+      <a href="#" id="buscar">Buscar pokemons similares</a>
+    </section>
+    <section id="resultados">
+      <h2>Resultados</h2>
+      <input
+        v-model="size"
+        @change="resize"
+        type="range"
+        max="200"
+        min="40"
+        step="10">
+    </section>
+  </div>
+</body>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="imagesFilenames.php"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      size: 80,
+      imagesFilenames: imagesFilenames
+    },
+    methods: {
+      resize: function () {
+        document.body.style.setProperty('--pokemonSize', `${this.size}px`)
+      }
+    }
+  })
+</script>
+<script src="prueba.js"></script>
+</html>

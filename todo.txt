@@ -1,0 +1,17 @@
+Hacer una tabla para los pokemon
+  - Nombre del archivo de la imagen
+  - Nombre del pokemon
+  - Una columna por cada componente del vector
+    + Las columnas van a ser c1...cN
+
+Hacer índice con los componentes del vector que corresponde a una imagen
+  - Hacer store procedure que le pasemos el vector asociado o el nombre del archivo o el pokemon y obtenga el vector de ese pokemon y los compare con todos los de la db
+
+Ver cómo cargar el JSON que tenemos en la DB
+
+Método en el backend para que te
+  - conteste la lista de pokemon de la DB
+  - permita subir la imagen
+  - efectúe todo lo que tenga que hacer hasta que concluya la búsqueda
+
+Escribir el informe.
