@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcb9d5095d4928bbdbebca7f6828a0a32
+class ComposerStaticInit9d09e2e0bf94ea7d3ce3934b916ebf0e
 {
     public static $files = array (
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
@@ -59,8 +59,19 @@ class ComposerStaticInitcb9d5095d4928bbdbebca7f6828a0a32
     );
 
     public static $prefixesPsr0 = array (
+        'V' => 
+        array (
+            'Viocon' => 
+            array (
+                0 => __DIR__ . '/..' . '/usmanhalalit/viocon/src',
+            ),
+        ),
         'P' => 
         array (
+            'Pixie' => 
+            array (
+                0 => __DIR__ . '/..' . '/usmanhalalit/pixie/src',
+            ),
             'Pimple' => 
             array (
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
@@ -71,9 +82,9 @@ class ComposerStaticInitcb9d5095d4928bbdbebca7f6828a0a32
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcb9d5095d4928bbdbebca7f6828a0a32::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcb9d5095d4928bbdbebca7f6828a0a32::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitcb9d5095d4928bbdbebca7f6828a0a32::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit9d09e2e0bf94ea7d3ce3934b916ebf0e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit9d09e2e0bf94ea7d3ce3934b916ebf0e::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit9d09e2e0bf94ea7d3ce3934b916ebf0e::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

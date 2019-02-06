@@ -1,6 +1,7 @@
 {
     "require": {
         "php-ai/php-ml": "^0.6.2",
-        "slim/slim": "^3.0"
+        "slim/slim": "^3.0",
+        "usmanhalalit/pixie": "^2.0.0"
     }
 }
