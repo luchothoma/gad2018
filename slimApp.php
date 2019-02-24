@@ -40,8 +40,10 @@ $app->get('/hello/{name}', function (Request $request, Response $response, array
 });
 
 // Query example to a Postgres Database
-$app->get('/try-database', function (Request $request, Response $response, array $args) {
-	$query = $this->db->query('select * from "Alumnos"');
+$app->get('/selectAll', function (Request $request, Response $response, array $args) {
+    $directory = $this->get('settings')['image_url'];
+	$query = $this->db->query('select p.id, p.nombre,  CONCAT(\''.$directory.'\',p."nombreArchivo")
+     as nombreArchivo from "pokemon" p');
     return $response->withJson($query->get());
 });
 
