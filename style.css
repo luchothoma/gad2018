@@ -96,10 +96,16 @@ h2 {
   box-shadow: 0 -.25em 0 rgba(0, 0, 0, .3) inset;
   border-top-right-radius: .2em;
   border-bottom-right-radius: .2em;
+  user-select: none;
 }
 
 .upload-area a[type="button"]:hover {
   cursor: pointer;
+  background-color: #b34f4f;
+}
+
+.upload-area a[type="button"]:active {
+  background-color: #963737;
 }
 
 .file-input {
@@ -110,10 +116,19 @@ h2 {
   box-shadow: 0 -.25em 0 rgba(0, 0, 0, .3) inset;
   border-top-left-radius: .2em;
   border-bottom-left-radius: .2em;
+  user-select: none;
 }
 
 .file-input label {
   cursor: pointer;  
+}
+
+.file-input:hover {
+  background-color: #d2d2d2;
+}
+
+.file-input:active {
+  background-color: #c5c5c5;
 }
 
 #buscar {
@@ -123,4 +138,13 @@ h2 {
   padding: .7em 1em;
   border-radius: .2em;
   box-shadow: 0 -.25em 0 rgba(0, 0, 0, .3) inset; 
+  user-select: none;
+}
+
+#buscar:hover {
+  background-color: #396a92;
+}
+
+#buscar:active {
+  background-color: #265073;
 }

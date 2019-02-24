@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Búsqueda de Pokémon</title>
+  <title>Pokebúsqueda · ¡Búscalos ya!</title>
+  <link rel="icon" href="./images/favicon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -40,7 +41,7 @@
             @click.prevent="$refs.upload.active = true"
             type="button"
           >
-            Subir y buscar
+            Subir y buscar similares
           </a>
   
           <a
@@ -51,7 +52,7 @@
             Detener subida
           </a>
         </div>
-        <a id="buscar">Buscar pokemons similares</a>
+        <a id="buscar">Buscar similares</a>
       </div>
     </section>
     <section id="resultados">
