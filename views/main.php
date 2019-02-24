@@ -14,13 +14,13 @@
       <h2>Elige un pokemon</h2>
       
       <ul class="lista-pokemon">
-        <!-- <li v-for="name in imagesFilenames" :key="name">
-          <input type="radio" :id="name" name="pokemon" :value="name">
-          <label :for="name">
-            <img :src="`images/pokemons_db/${name}.png`">
-            {{ name }}
+         <li v-for="poke in pokemon" :key="poke.id">
+          <input type="radio" :id="poke.id" name="pokemon-elegido" :value="poke.id">
+          <label :for="poke.id">
+            <img :src="poke.nombrearchivo">
+            {{ poke.nombre+ ' ' + poke.id }}
           </label>
-        </li> -->
+        </li> 
       </ul>
       
       <div class="toolbar">

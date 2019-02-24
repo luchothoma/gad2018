@@ -42,10 +42,11 @@ new Vue({
       fetch('./selectAll', {
         method: 'GET'
       })
-      .then(response => this.pokemon = response.json())
-    },
-    mounted: function () {
-      getAllPokemon()
+      .then(response => response.json())
+      .then(data=> this.pokemon=data)
     }
-  }
+  },
+   mounted: function () {
+      this.getAllPokemon()
+    }
 })
