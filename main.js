@@ -53,16 +53,10 @@ new Vue({
       this.pokemonName = prompt('¿Cómo se llama el pokemon que vas a subir?')
     },
     searchPokemon: function () {
-      fetch('./selectAll', {
-        method: 'GET',
-        body: JSON.stringify({ 
-          idPokemon: this.selectedPokemon,
-          count: this.searchLimit
-        })
-      })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.error(error))
+      fetch(`./similar/${this.selectedPokemon}/${this.searchLimit}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error))
     }
   },
    mounted: function () {
