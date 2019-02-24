@@ -1,8 +1,9 @@
-CREATE OR REPLACE FUNCTION distaniaEuclideana(vector1 real[], vector2 real[]) RETURNS real AS $$
+DROP FUNCTION IF EXISTS DistaniaEuclideana;
+CREATE OR REPLACE FUNCTION DistaniaEuclideana(vector1 REAL[], vector2 REAL[]) RETURNS REAL AS $$
 DECLARE
-  acumuladorDeDiferencias real;
-  dimensionDelVector1 int;
-  dimensionDelVector2 int;
+  acumuladorDeDiferencias REAL;
+  dimensionDelVector1 INTEGER;
+  dimensionDelVector2 INTEGER;
 BEGIN
   acumuladorDeDiferencias := 0;
   dimensionDelVector1 = array_length(vector1,1);
@@ -19,10 +20,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-DROP FUNCTION IF EXISTS pokemonVectorCaracteristico;
-CREATE OR REPLACE FUNCTION pokemonVectorCaracteristico(p pokemon) RETURNS real[] AS $$
+DROP FUNCTION IF EXISTS PokemonVectorCaracteristico;
+CREATE OR REPLACE FUNCTION PokemonVectorCaracteristico(p pokemon) RETURNS REAL[] AS $$
 BEGIN
-  return ARRAY[
+  RETURN ARRAY[
 	p.c1,p.c2,p.c3,p.c4,p.c5,p.c6,p.c7,p.c8,p.c9,p.c10,
 	p.c11,p.c12,p.c13,p.c14,p.c15,p.c16,p.c17,p.c18,p.c19,p.c20,
 	p.c21,p.c22,p.c23,p.c24,p.c25,p.c26,p.c27,p.c28,p.c29,p.c30,
@@ -31,15 +32,31 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
---select distaniaEuclideana(ARRAY[1,1,4],ARRAY[2,1])
---select pokemonVectorCaracteristico(p) FROm pokemon as p LIMIT 1
-
-DROP FUNCTION IF EXISTS getbyid;
-CREATE OR REPLACE FUNCTION public.getbyid("idPokemon" integer)
+DROP FUNCTION IF EXISTS ObtenerPokemonPorId;
+CREATE OR REPLACE FUNCTION ObtenerPokemonPorId(idPokemon integer)
 RETURNS TABLE (p pokemon) AS $$
 BEGIN  
-        RETURN QUERY select *   from pokemon   where pokemon.id ="idPokemon";
+        RETURN QUERY select *   from pokemon   where id =idPokemon;
 END;
 $$ LANGUAGE plpgsql;
 
+DROP FUNCTION IF EXISTS ObtenerNPokemonsSimilares;
+CREATE OR REPLACE FUNCTION ObtenerNPokemonsSimilares(
+	cantidadPokemons INTEGER,
+	pokemonId INTEGER
+)
+RETURNS TABLE(id INTEGER, distancia REAL)
+AS $$
+DECLARE
+pokemonBusquedaVectorCaracteristico REAL[];
+BEGIN	
+	pokemonBusquedaVectorCaracteristico := PokemonVectorCaracteristico(ObtenerPokemonPorId(pokemonId));
+	RETURN QUERY SELECT p.id, distaniaEuclideana(PokemonBusquedaVectorCaracteristico,PokemonVectorCaracteristico(p)) as distancia FROM pokemon as p ORDER BY distancia ASC LIMIT cantidadPokemons;
+END;
+$$
+LANGUAGE 'plpgsql';
 
+--select DistaniaEuclideana(ARRAY[1,1,4],ARRAY[2,1,3]);
+--select DistaniaEuclideana(PokemonVectorCaracteristico(p),PokemonVectorCaracteristico(p)) FROm pokemon as p LIMIT 1;
+--select ObtenerPokemonPorId(15);
+--select ObtenerNPokemonsSimilares(10,5);
