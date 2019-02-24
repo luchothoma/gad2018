@@ -31,29 +31,15 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-select distaniaEuclideana(ARRAY[1,1,4],ARRAY[2,1])
-select pokemonVectorCaracteristico(p) FROm pokemon as p LIMIT 1
+--select distaniaEuclideana(ARRAY[1,1,4],ARRAY[2,1])
+--select pokemonVectorCaracteristico(p) FROm pokemon as p LIMIT 1
 
-DROP FUNCTION IF EXISTS ObtenerNPokemonsSimilares;
-CREATE OR REPLACE FUNCTION ObtenerNPokemonsSimilares(
-	cantidadPokemons INTEGER,
-	
-)
-RETURNS TABLE(persona_id INTEGER, dependede INTEGER, nivel INTEGER)
-AS $$
-BEGIN
-RETURN QUERY
-	WITH RECURSIVE
-	  elementosHastaLaRaiz(persona_id, dependede, nivel) AS 
-	     (SELECT dc.persona_id, dc.dependede, 0
-	       FROM docente as dc
-	       WHERE
-	       dc.persona_id = A
-	    UNION
-	       SELECT d.persona_id, d.dependede, (raiz.nivel + 1)
-	       FROM elementosHastaLaRaiz as raiz, docente as d
-	       WHERE  raiz.dependede IS NOT NULL AND d.persona_id = raiz.dependede)
-	SELECT * FROM elementosHastaLaRaiz;
+DROP FUNCTION IF EXISTS getbyid;
+CREATE OR REPLACE FUNCTION public.getbyid("idPokemon" integer)
+RETURNS TABLE (p pokemon) AS $$
+BEGIN  
+        RETURN QUERY select *   from pokemon   where pokemon.id ="idPokemon";
 END;
-$$
-LANGUAGE 'plpgsql';
+$$ LANGUAGE plpgsql;
+
+
