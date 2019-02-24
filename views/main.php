@@ -48,6 +48,7 @@
             v-model="files"
             class="file-input"
             post-action="./upload"
+            @input="promptPokemonName"
             @input-file="inputFile"
             @input-filter="inputFilter"
           >

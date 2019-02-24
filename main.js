@@ -7,7 +7,8 @@ new Vue({
     return {
       files: [],
       pokemon: [],
-      searchLimit: 15
+      searchLimit: 15,
+      pokemonName: ''
     }
   },
   components: {
@@ -46,6 +47,9 @@ new Vue({
       .then(response => response.json())
       .then(data => this.pokemon = data)
       .catch(error => console.error(error))
+    },
+    promptPokemonName: function () {
+      this.pokemonName = prompt('¿Cómo se llama el pokemon que vas a subir?')
     }
   },
    mounted: function () {
