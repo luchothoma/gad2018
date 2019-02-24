@@ -80,6 +80,7 @@ h2 {
   bottom: 0;
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
   padding: 1em;
@@ -148,3 +149,94 @@ h2 {
 #buscar:active {
   background-color: #265073;
 }
+
+
+/* SLIDER */
+
+input[type=range].slider {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 0px 0;
+}
+input[type=range].slider:focus {
+  outline: none;
+}
+input[type=range].slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+  background: #cccccc;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+input[type=range].slider::-webkit-slider-thumb {
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  border: 0px solid #ff1e00;
+  height: 30px;
+  width: 50px;
+  border-radius: 0px;
+  background: #dddddd;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: 0px;
+}
+input[type=range].slider:focus::-webkit-slider-runnable-track {
+  background: #d9d9d9;
+}
+input[type=range].slider::-moz-range-track {
+  width: 100%;
+  height: 30px;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+  background: #cccccc;
+  border-radius: 0px;
+  border: 0px solid #010101;
+}
+input[type=range].slider::-moz-range-thumb {
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  border: 0px solid #ff1e00;
+  height: 30px;
+  width: 50px;
+  border-radius: 0px;
+  background: #dddddd;
+  cursor: pointer;
+}
+input[type=range].slider::-ms-track {
+  width: 100%;
+  height: 30px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range].slider::-ms-fill-lower {
+  background: #bfbfbf;
+  border: 0px solid #010101;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+}
+input[type=range].slider::-ms-fill-upper {
+  background: #cccccc;
+  border: 0px solid #010101;
+  border-radius: 0px;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+}
+input[type=range].slider::-ms-thumb {
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  border: 0px solid #ff1e00;
+  width: 50px;
+  border-radius: 0px;
+  background: #dddddd;
+  cursor: pointer;
+  height: 30px;
+}
+input[type=range].slider:focus::-ms-fill-lower {
+  background: #cccccc;
+}
+input[type=range].slider:focus::-ms-fill-upper {
+  background: #d9d9d9;
+}
+
+
+/* FIN SLIDER */

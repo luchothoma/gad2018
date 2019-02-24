@@ -5,7 +5,8 @@ new Vue({
   el: '#app',
   data () {
     return {
-      files: []
+      files: [],
+      pokemon: []
     }
   },
   components: {
@@ -36,6 +37,15 @@ new Vue({
       if (URL && URL.createObjectURL) {
         newFile.blob = URL.createObjectURL(newFile.file)
       }
+    },
+    getAllPokemon: function () {
+      fetch('./selectAll', {
+        method: 'GET'
+      })
+      .then(response => this.pokemon = response.json())
+    },
+    mounted: function () {
+      getAllPokemon()
     }
   }
 })

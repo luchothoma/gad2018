@@ -24,6 +24,7 @@
       </ul>
       
       <div class="toolbar">
+        <input type="range" class="slider">
         <div class="upload-area">
           <file-upload
             ref="upload"
