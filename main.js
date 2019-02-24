@@ -6,7 +6,8 @@ new Vue({
   data () {
     return {
       files: [],
-      pokemon: []
+      pokemon: [],
+      searchLimit: 15
     }
   },
   components: {
@@ -43,7 +44,8 @@ new Vue({
         method: 'GET'
       })
       .then(response => response.json())
-      .then(data=> this.pokemon=data)
+      .then(data => this.pokemon = data)
+      .catch(error => console.error(error))
     }
   },
    mounted: function () {

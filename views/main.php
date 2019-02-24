@@ -7,24 +7,41 @@
   <title>Pokebúsqueda · ¡Búscalos ya!</title>
   <link rel="icon" href="./images/favicon.png">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700">
 </head>
 <body>
   <div id="app">
     <section id="busqueda">
-      <h2>Elige un pokemon</h2>
+      <div class="heading">
+        <h2>¡Búscalo ya!</h2>
+        <h3>Elige o sube un pokemon</h3>
+      </div>
       
       <ul class="lista-pokemon">
-         <li v-for="poke in pokemon" :key="poke.id">
+        <li v-for="poke in pokemon" :key="poke.id">
           <input type="radio" :id="poke.id" name="pokemon-elegido" :value="poke.id">
           <label :for="poke.id">
             <img :src="poke.nombrearchivo">
-            {{ poke.nombre+ ' ' + poke.id }}
+            {{ poke.nombre }}
           </label>
         </li> 
       </ul>
       
       <div class="toolbar">
-        <input type="range" class="slider">
+        <div class="limit-filter">
+          <input
+            type="range"
+            v-model="searchLimit"
+            class="slider"
+            value="15"
+            min="5"
+            max="20"
+            step="1">
+          <div class="limit-number">
+            <strong class="label">Límite de búsqueda:</strong> <span class="number">{{ searchLimit }}</span>
+          </div>
+        </div>
+
         <div class="upload-area">
           <file-upload
             ref="upload"
@@ -57,7 +74,10 @@
       </div>
     </section>
     <section id="resultados">
-      <h2>Resultados</h2>
+      <div class="heading">
+        <h2>Pokemon similares</h2>
+        <h3>Resultado de la búsqueda</h3>
+      </div>
     </section>
   </div>
 </body>
