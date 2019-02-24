@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/slimConfig.php';
 
 use \Slim\App;
 use \Slim\Http\UploadedFile;
@@ -8,17 +7,32 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Pixie as Pixie;
 
+$slim_configuration = require_once __DIR__ . '/slimConfig.php';
 $app = new App(['settings' => $slim_configuration]);
 
 // As we have Slim\Container object, we can add our services to it.
 $container = $app->getContainer();
-$container['upload_directory'] = __DIR__ . '/images/pokemon';
 
 $container['db'] = function ($conf) {
     $PQBconfig = $conf['settings']['db'];
     $PQBconnection = new Pixie\Connection( $PQBconfig['driver'], $PQBconfig);
     return new Pixie\QueryBuilder\QueryBuilderHandler($PQBconnection);
 };
+
+// Register component on container
+$container['view'] = function ($container) {
+    return new \Slim\Views\PhpRenderer('./views/');
+};
+
+// Define app routes
+$app->get('/', function (Request $request, Response $response, array $args) {
+	/*
+	return $this->view->render($response, 'profile.html', [
+        'name' => $args['name']
+    ]);
+    */
+    return $this->view->render($response, 'main.php', []);
+});
 
 // Define app routes
 $app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
@@ -33,17 +47,17 @@ $app->get('/try-database', function (Request $request, Response $response, array
 
 // Upload an image
 $app->post('/upload', function(Request $request, Response $response) {
-    
-    $directory = $this->get('upload_directory');
-
-    $uploadedFiles = $request->getUploadedFiles();
+   $uploadedFiles = $request->getUploadedFiles();
 
     $uploadedFile = $uploadedFiles['file'];
 
     if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
+    	$directory = $this->get('settings')['upload_directory'];
         $filename = moveUploadedFile($directory, $uploadedFile);
         return $response->withJson(array('filename' => $filename));
     }
+    else
+    	return $response->withJson(null);
     
 });
 
