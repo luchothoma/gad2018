@@ -19,7 +19,12 @@
       
       <ul class="lista-pokemon">
         <li v-for="poke in pokemon" :key="poke.id">
-          <input type="radio" :id="poke.id" name="pokemon-elegido" :value="poke.id">
+          <input
+            type="radio"
+            :id="poke.id"
+            name="selectedPokemon"
+            v-model="selectedPokemon"
+            :value="poke.id">
           <label :for="poke.id">
             <img :src="poke.nombrearchivo">
             {{ poke.nombre }}
@@ -71,7 +76,7 @@
             Detener subida
           </a>
         </div>
-        <a id="buscar">Buscar similares</a>
+        <a id="buscar" @click.prevent="searchPokemon">Buscar similares</a>
       </div>
     </section>
     <section id="resultados">
