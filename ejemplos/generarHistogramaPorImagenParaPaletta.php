@@ -108,7 +108,7 @@ if ($gestor = opendir($dir)) {
                     $rgbaCentroide = getCentroidOf3x3([
                         $img->getPixelRGBA($w-1,$h+1),  $img->getPixelRGBA($w,$h+1),  $img->getPixelRGBA($w+1,$h+1),
                         $img->getPixelRGBA($w-1,$h),  $img->getPixelRGBA($w,$h),  $img->getPixelRGBA($w+1,$h),
-                        $img->getPixelRGBA($w-1,$h-1),  $img->getPixelRGBA($w,$h-1),  $img->getPixelRGBA($w-1,$h-1)
+                        $img->getPixelRGBA($w-1,$h-1),  $img->getPixelRGBA($w,$h-1),  $img->getPixelRGBA($w+1,$h-1)
                     ]);                    
                     $res = colorPalletPredominant($colorPalletArray ,$rgbaCentroide);
                     $result[$imgIndex]['caracteristic_vector'][$res['index']+$colorsPalletQuantity] += 1;

@@ -50,7 +50,7 @@ $app->get('/selectAll', function (Request $request, Response $response, array $a
 //Get similar
 $app->get('/similar/{idPokemon}[/{count}]', function (Request $request, Response $response, array $args) {
     $count=10;
-    if(isset( $args['count'])){
+    if(isset($args['count'])){
          $count=$args['count'];
     }
 	$query = $this->db->query('select ObtenerNPokemonsSimilares('.$count.', '.$args['idPokemon'].');');
@@ -67,7 +67,17 @@ $app->post('/upload', function(Request $request, Response $response) {
     if ($uploadedFile->getError() === UPLOAD_ERR_OK) {
     	$directory = $this->get('settings')['upload_directory'];
         $filename = moveUploadedFile($directory, $uploadedFile);
-        return $response->withJson(array('filename' => $filename));
+
+        require_once 'classes/Image.php';
+        require_once 'classes/VectorCaracteristico.php';
+
+        $img = new Image($directory.'/'.$filename);
+        $vector = new VectorCaracteristico($img);
+
+        return $response->withJson([
+        	'filename' => $filename,
+        	'vector' => $vector->get()
+        ]);
     }
     else
     	return $response->withJson(null);
