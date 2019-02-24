@@ -10,26 +10,49 @@
 <body>
   <div id="app">
     <section id="busqueda">
+      
       <ul class="lista-pokemon">
-        <li v-for="name in imagesFilenames" :key="name">
+        <!-- <li v-for="name in imagesFilenames" :key="name">
           <input type="radio" :id="name" name="pokemon" :value="name">
           <label :for="name">
             <img :src="`images/pokemons_db/${name}.png`">
             {{ name }}
           </label>
-        </li>
+        </li> -->
       </ul>
-      <a href="#" id="buscar">Buscar pokemons similares</a>
+      
+      <div class="toolbar">
+        <file-upload
+          ref="upload"
+          v-model="files"
+          class="file-input"
+          post-action="./upload"
+          @input-file="inputFile"
+          @input-filter="inputFilter"
+        >
+          Agregar pokemon...
+        </file-upload>
+  
+        <a
+          v-show="!$refs.upload || !$refs.upload.active"
+          @click.prevent="$refs.upload.active = true"
+          type="button"
+        >
+          Subir y buscar
+        </a>
+
+        <a
+          v-show="$refs.upload && $refs.upload.active"
+          @click.prevent="$refs.upload.active = false"
+          type="button"
+        >
+          Detener subida
+        </a>
+        <a id="buscar">Buscar pokemons similares</a>
+      </div>
     </section>
     <section id="resultados">
       <h2>Resultados</h2>
-      <input
-        v-model="size"
-        @change="resize"
-        type="range"
-        max="200"
-        min="40"
-        step="10">
     </section>
   </div>
 </body>
@@ -38,20 +61,7 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="imagesFilenames.php"></script>
-<script>
-  new Vue({
-    el: '#app',
-    data: {
-      size: 80,
-      imagesFilenames: imagesFilenames
-    },
-    methods: {
-      resize: function () {
-        document.body.style.setProperty('--pokemonSize', `${this.size}px`)
-      }
-    }
-  })
-</script>
-<script src="prueba.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-upload-component"></script>
+<script src="main.js"></script>
+<!-- <script src="prueba.js"></script> -->
 </html>

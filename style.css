@@ -33,6 +33,7 @@ h2 {
 
 #busqueda {
   background: #fff;
+  position: relative;
 }
 
 #resultados {
@@ -75,21 +76,9 @@ h2 {
   background: #82dcff;
 }
 
-#buscar {
-  font-size: 2em;
-  font-family: inherit;
+.toolbar {
+  background-color: #eee;
   position: absolute;
-  bottom: 1em;
-  font-weight: bold;
-  background: steelblue;
-  padding: .4em;
-  color: #000;
-  text-decoration: none;
   bottom: 0;
-  left: 0;
-}
-
-#buscar:hover {
-  background: black;
-  color: #eee;
+  width: 100%;
 }
