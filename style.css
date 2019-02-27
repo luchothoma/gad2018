@@ -104,6 +104,7 @@ body {
   justify-content: center;
   flex-wrap: wrap;
   min-height: 100%;
+  align-content: flex-start;
 }
 
 .lista-pokemon li input[type="radio"] {
@@ -379,3 +380,33 @@ input[type=range].slider:focus::-ms-fill-upper {
 
 
 /* FIN SLIDER */
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  padding: 1em;
+  background-color: #ddd;
+}
+
+.footer p {
+  font-weight: 300;
+  color: #333;
+  margin: 0;
+  text-align: center;
+}
+
+.footer .authors {
+  font-weight: normal;
+}
+
+.footer .college {
+  font-size: .9em;
+}
+
+.footer .logoutn {
+  height: 3em;
+  opacity: 0.2;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}

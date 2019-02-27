@@ -109,6 +109,16 @@
           </label>
         </li> 
       </ul>
+
+      <footer class="footer">
+        <p class="authors">
+          Martín Cuba · Luciano Thoma · Valentín Costa
+        </p>
+        <p class="college">
+          Gestión Avanzada de Datos · 2018 · UTN CDU
+        </p>
+        <img class="logoutn" src="images/logoutn.svg">
+      </footer>
     </section>
   </div>
 </body>
