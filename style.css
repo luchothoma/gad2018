@@ -39,11 +39,56 @@ body {
   display: flex;
 }
 
+#loading {
+  z-index: 1;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -60px;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 12px solid #333;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #333 transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 #busqueda,
 #resultados {
   height: 100%;
   width: 50%;
   overflow-y: scroll;
+  min-height: 100vh;
 }
 
 #busqueda {
@@ -58,6 +103,7 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  min-height: 100%;
 }
 
 .lista-pokemon li input[type="radio"] {
@@ -121,9 +167,20 @@ body {
 
 .upload-area {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.upload-area a[type="button"] {
+.upload-area input[type="text"] {
+  border: 0;
+  box-shadow: 0 0 1px rgba(0, 0, 0, .1) inset;
+  font-family: Oswald;
+  border-top-left-radius: .2em;
+  border-bottom-left-radius: .2em;
+  box-sizing: border-box;  
+  padding: 0.7em 1.1em 0.8em;
+}
+
+.upload-area .button {
   color: #fff;
   background-color: indianred;
   padding: .7em 1.2em .9em;
@@ -131,15 +188,24 @@ body {
   border-top-right-radius: .2em;
   border-bottom-right-radius: .2em;
   user-select: none;
+  border: 0;
+  font-family: Oswald;
+  text-transform: uppercase;
+  font-weight: normal;
 }
 
-.upload-area a[type="button"]:hover {
+.upload-area .button:hover {
   cursor: pointer;
   background-color: #b34f4f;
 }
 
-.upload-area a[type="button"]:active {
+.upload-area .button:active {
   background-color: #963737;
+}
+
+.upload-area .button:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
 }
 
 .file-input {
@@ -148,8 +214,6 @@ body {
   padding: .7em 1.2em .9em;
   display: block !important;
   box-shadow: 0 -.25em 0 rgba(0, 0, 0, .3) inset;
-  border-top-left-radius: .2em;
-  border-bottom-left-radius: .2em;
   user-select: none;
 }
 
@@ -173,6 +237,10 @@ body {
   border-radius: .2em;
   box-shadow: 0 -.25em 0 rgba(0, 0, 0, .3) inset; 
   user-select: none;
+  border: 0;
+  font-family: Oswald;
+  text-transform: uppercase;
+  font-weight: normal;
 }
 
 #buscar:hover {
@@ -183,16 +251,26 @@ body {
   background-color: #265073;
 }
 
+#buscar:disabled {
+  background-color: #9e9e9e;
+  cursor: not-allowed;
+}
+
 .limit-filter {
-  width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
+  margin-bottom: 1em;
 }
 
 .limit-number {
-  color: #333;
-  width: 135px;
+  color: #555;
+  padding: 0.4em 1em .8em;
+  border-radius: .2em;
+  margin: 0 1em;
+  background-color: #fff;
+  width: 145px;
+  text-align: center
 }
 
 .limit-number .label {
@@ -208,16 +286,15 @@ body {
 
 input[type=range].slider {
   -webkit-appearance: none;
-  width: 312px;
   margin: 0px 0;
-  margin-bottom: 1em;
+  width: 148px;
 }
 input[type=range].slider:focus {
   outline: none;
 }
 input[type=range].slider::-webkit-slider-runnable-track {
   width: 100%;
-  height: 30px;
+  height: 42px;
   cursor: pointer;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
   background: #cccccc;
@@ -227,7 +304,7 @@ input[type=range].slider::-webkit-slider-runnable-track {
 input[type=range].slider::-webkit-slider-thumb {
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
   border: 0px solid #ff1e00;
-  height: 30px;
+  height: 42px;
   width: 50px;
   border-radius: 0px;
   background: #aaaaaa;
@@ -242,7 +319,7 @@ input[type=range].slider:focus::-webkit-slider-runnable-track {
 }
 input[type=range].slider::-moz-range-track {
   width: 100%;
-  height: 30px;
+  height: 42px;
   cursor: pointer;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
   background: #cccccc;
@@ -252,7 +329,7 @@ input[type=range].slider::-moz-range-track {
 input[type=range].slider::-moz-range-thumb {
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
   border: 0px solid #ff1e00;
-  height: 30px;
+  height: 42px;
   width: 50px;
   border-radius: 0px;
   background: #aaaaaa;
@@ -262,7 +339,7 @@ input[type=range].slider::-moz-range-thumb {
 }
 input[type=range].slider::-ms-track {
   width: 100%;
-  height: 30px;
+  height: 42px;
   cursor: pointer;
   background: transparent;
   border-color: transparent;
@@ -288,7 +365,7 @@ input[type=range].slider::-ms-thumb {
   border-radius: 0px;
   background: #aaaaaa;
   cursor: pointer;
-  height: 30px;
+  height: 42px;
   border-radius: .2em;
   box-shadow: 0 -.25em 0 rgba(0, 0, 0, .3) inset; 
 }

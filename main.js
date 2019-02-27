@@ -8,9 +8,12 @@ new Vue({
       files: [],
       pokemon: [],
       searchLimit: 15,
-      pokemonName: '',
+      pokemonData: {
+        pokemonName: ''
+      },
       selectedPokemon: '',
-      similarPokemon: []
+      similarPokemon: [],
+      isLoading: false
     }
   },
   components: {
@@ -20,10 +23,16 @@ new Vue({
     inputFile: function (newFile, oldFile) {
       if (newFile && oldFile && !newFile.active && oldFile.active) {
         // Get response data
-        console.log('response', newFile.response.filename)
+        console.log('response', newFile.response)
         if (newFile.xhr) {
           //  Get the response status code
           console.log('status', newFile.xhr.status)
+        }
+
+        if (newFile.success !== oldFile.success) {
+          this.getAllPokemon()
+          this.selectedPokemon = newFile.response.id
+          this.searchSimilar()
         }
       }
     },
@@ -43,18 +52,21 @@ new Vue({
       }
     },
     getAllPokemon: function () {
+      this.isLoading = true
+
       fetch('./selectAll',)
         .then(response => response.json())
         .then(data => this.pokemon = data)
+        .then(() => this.isLoading = false)
         .catch(error => console.error(error))
     },
-    promptPokemonName: function () {
-      this.pokemonName = prompt('¿Cómo se llama el pokemon que vas a subir?')
-    },
     searchSimilar: function () {
+      this.isLoading = true
+
       fetch(`./similar/${this.selectedPokemon}/${this.searchLimit}`)
         .then(response => response.json())
         .then(data => this.similarPokemon = this.formatSimilarResults(data))
+        .then(() => this.isLoading = false)
         .catch(error => console.error(error))
     },
     formatSimilarResults: function (results) {

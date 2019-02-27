@@ -18,6 +18,6 @@ Escribir el informe.
 
 Detalles del frontend:
   - Agregar "cargando..."
-  - Hacer andar el "Subir y buscar"
+  - Hacer andar el "Subir y buscar" (pasar el nombre)
   - Corregir el doble prompt()
   - Agregar footer

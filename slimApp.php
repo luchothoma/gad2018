@@ -68,7 +68,8 @@ $app->post('/upload', function(Request $request, Response $response) {
     	$directory = $this->get('settings')['upload_directory'];
     	$public_directory = $this->get('settings')['image_url'];
         $filename = moveUploadedFile($directory, $uploadedFile);
-        $nombre = 'NOMBREharcodeado';
+        $nombre = $request->getParsedBody()['pokemonName'];
+        
         $vector = createCharacteristicVector($directory.'/'.$filename);
 
         $data = array(

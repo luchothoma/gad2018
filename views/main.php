@@ -11,6 +11,9 @@
 </head>
 <body>
   <div id="app">
+    <div id="loading" v-if="isLoading">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
     <section id="busqueda">
       <div class="heading">
         <h2>¡Búscalo ya!</h2>
@@ -45,38 +48,50 @@
           <div class="limit-number">
             <strong class="label">Límite de búsqueda:</strong> <span class="number">{{ searchLimit }}</span>
           </div>
+          <button
+            id="buscar"
+            :disabled="!selectedPokemon"
+            @click.prevent="searchSimilar"
+          >
+            Buscar similares
+          </button>
         </div>
 
         <div class="upload-area">
+          <input
+            type="text"
+            placeholder="Nombre del pokemon"
+            v-model="pokemonData.pokemonName">
+
           <file-upload
             ref="upload"
             v-model="files"
             class="file-input"
+            :data="pokemonData"
             post-action="./upload"
-            @input="promptPokemonName"
             @input-file="inputFile"
             @input-filter="inputFilter"
           >
-            Seleccionar pokemon...
+            Seleccionar imagen...
           </file-upload>
     
-          <a
+          <button
             v-show="!$refs.upload || !$refs.upload.active"
+            :disabled="!files.length || !pokemonData.pokemonName"
             @click.prevent="$refs.upload.active = true"
-            type="button"
+            class="button"
           >
             Subir y buscar similares
-          </a>
+          </button>
   
-          <a
+          <button
             v-show="$refs.upload && $refs.upload.active"
             @click.prevent="$refs.upload.active = false"
-            type="button"
+            class="button"
           >
             Detener subida
-          </a>
+          </button>
         </div>
-        <a id="buscar" @click.prevent="searchSimilar">Buscar similares</a>
       </div>
     </section>
     <section id="resultados">
