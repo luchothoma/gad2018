@@ -1,4 +1,10 @@
 <?php 
+use Phpml\Math\Distance\Euclidean;
+
+use Phpml\Clustering\KMeans\Cluster;
+use Phpml\Clustering\KMeans\Space;
+use Phpml\Clustering\KMeans\Point;
+
 class VectorCaracteristico {
     private $_img = null;
     private $_vector = [];

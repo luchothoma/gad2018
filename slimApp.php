@@ -68,21 +68,41 @@ $app->post('/upload', function(Request $request, Response $response) {
     	$directory = $this->get('settings')['upload_directory'];
         $filename = moveUploadedFile($directory, $uploadedFile);
 
-        require_once 'classes/Image.php';
-        require_once 'classes/VectorCaracteristico.php';
-
-        $img = new Image($directory.'/'.$filename);
-        $vector = new VectorCaracteristico($img);
-
         return $response->withJson([
         	'filename' => $filename,
-        	'vector' => $vector->get()
+        	'vector' => createCharacteristicVector($directory.'/'.$filename),
         ]);
     }
     else
     	return $response->withJson(null);
     
 });
+
+// prueba
+$app->get('/test', function(Request $request, Response $response) {
+    	$directory = $this->get('settings')['upload_directory'];
+        $filename = "abra.png";
+        
+        $ti =  microtime(true);
+        $v = createCharacteristicVector($directory.'/'.$filename);
+        $tf =  microtime(true);
+
+        return $response->withJson([
+        	'vector' => $v,
+        	'tiempo' => (($tf-$ti)/1000)
+        ]);
+});
+
+
+function createCharacteristicVector(string $image_path){
+	require_once 'classes/Image.php';
+	require_once 'classes/VectorCaracteristico.php';
+
+    $img = new Image($image_path);
+    $vector = new VectorCaracteristico($img);
+
+    return $vector->get();
+}
 
 // Move an uploaded file
 function moveUploadedFile($directory, UploadedFile $uploadedFile) {
