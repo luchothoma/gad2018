@@ -1,4 +1,10 @@
 <?php 
+use Phpml\Math\Distance\Euclidean;
+
+use Phpml\Clustering\KMeans\Cluster;
+use Phpml\Clustering\KMeans\Space;
+use Phpml\Clustering\KMeans\Point;
+
 class VectorCaracteristico {
     private $_img = null;
     private $_vector = [];
@@ -79,7 +85,7 @@ class VectorCaracteristico {
 	    return ['index' => $palletColorIndex, 'color' => $palletColor];
 	}
 
-	private function getCentroidOf3x3($arrayRGBA): array{
+	private function getCentroidOf3x3($arrayRGBA): stdClass{
 	    $cluster = new Cluster( new Space(4), [[],[],[],[]]);
 	    foreach ($arrayRGBA as $color) {
 	        $cluster->attach(new Point([$color->red, $color->green, $color->blue, $color->alpha]));
@@ -93,7 +99,7 @@ class VectorCaracteristico {
 	    $centroidRGBA->blue = $centroid[2];
 	    $centroidRGBA->alpha = $centroid[3];
 
-	    return $centroidRGBA;
+	    return (object) $centroidRGBA;
 	}
 
 	//Calculo de ocurrencias de cada color de la paleta por cada pixel de la imagen
@@ -101,7 +107,7 @@ class VectorCaracteristico {
         foreach (range(0, ($this->_img->width()-1), 1) as $w) {
 		    foreach (range(0, ($this->_img->height()-1), 1) as $h) {
 
-                $res = $this->colorPalletPredominant($colorPalletArray ,$this->_img->getPixelRGBA($w,$h));
+                $res = $this->colorPalletPredominant($this->colorPallet() ,$this->_img->getPixelRGBA($w,$h));
                 $this->_vector[$res['index']] += 1;
 
 			}
@@ -117,8 +123,8 @@ class VectorCaracteristico {
                     $this->_img->getPixelRGBA($w-1,$h),  $this->_img->getPixelRGBA($w,$h),  $this->_img->getPixelRGBA($w+1,$h),
                     $this->_img->getPixelRGBA($w-1,$h-1),  $this->_img->getPixelRGBA($w,$h-1),  $this->_img->getPixelRGBA($w+1,$h-1)
                 ]);                    
-                $res = colorPalletPredominant($colorPalletArray ,$rgbaCentroide);
-                $this->_vector[$this->colorPalletDimension()+$res['index']] += 1;
+                $res = $this->colorPalletPredominant($this->colorPallet() ,$rgbaCentroide);
+                $this->_vector[($this->colorPalletDimension()+$res['index'])] = $this->_vector[($this->colorPalletDimension()+$res['index'])] + 1;
             }
         }
     }
@@ -126,7 +132,7 @@ class VectorCaracteristico {
     private function NormalizeResultVector(){
 		//Normalizar vector caracteristico
         $norma_vector = (new Euclidean())->distance($this->_origin_vector, $this->_vector);
-        for( $i=0; $i < size($this->_vector); $i++) { 
+        for( $i=0; $i < count($this->_vector); $i++) { 
             $this->_vector[$i] = $this->_vector[$i] / $norma_vector;
         }
     }

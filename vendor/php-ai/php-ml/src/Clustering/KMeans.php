@@ -16,12 +16,12 @@ class KMeans implements Clusterer
     /**
      * @var int
      */
-    private $clustersNumber;
+    protected $clustersNumber;
 
     /**
      * @var int
      */
-    private $initialization;
+    protected $initialization;
 
     public function __construct(int $clustersNumber, int $initialization = self::INIT_KMEANS_PLUS_PLUS)
     {
