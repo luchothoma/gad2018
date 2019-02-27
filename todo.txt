@@ -15,3 +15,9 @@ Método en el backend para que te
   - efectúe todo lo que tenga que hacer hasta que concluya la búsqueda
 
 Escribir el informe.
+
+Detalles del frontend:
+  - Agregar "cargando..."
+  - Hacer andar el "Subir y buscar"
+  - Corregir el doble prompt()
+  - Agregar footer

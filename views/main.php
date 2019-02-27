@@ -27,7 +27,7 @@
             :value="poke.id">
           <label :for="poke.id">
             <img :src="poke.nombrearchivo">
-            {{ poke.nombre }}
+            <strong>{{ poke.nombre }}</strong>
           </label>
         </li> 
       </ul>
@@ -76,7 +76,7 @@
             Detener subida
           </a>
         </div>
-        <a id="buscar" @click.prevent="searchPokemon">Buscar similares</a>
+        <a id="buscar" @click.prevent="searchSimilar">Buscar similares</a>
       </div>
     </section>
     <section id="resultados">
@@ -84,6 +84,16 @@
         <h2>Pokemon similares</h2>
         <h3>Resultado de la búsqueda</h3>
       </div>
+
+      <ul class="lista-pokemon">
+        <li v-for="poke in similarPokemon" :key="poke.id">
+          <label>
+            <img :src="poke.nombrearchivo">
+            <strong>{{ poke.nombre }}</strong>
+            <span>{{ poke.distance }}</span>
+          </label>
+        </li> 
+      </ul>
     </section>
   </div>
 </body>

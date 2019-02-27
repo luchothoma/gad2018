@@ -65,6 +65,7 @@ body {
 }
 
 .lista-pokemon li label {
+  color: #333;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,6 +73,17 @@ body {
   margin: 0.5em;
   cursor: pointer;
   user-select: none;
+  border-radius: .2em;
+  transition: all .3s ease;
+}
+
+.lista-pokemon li label strong {
+  font-weight: normal;
+}
+
+.lista-pokemon li label span {
+  color: #777;
+  font-weight: 300;
 }
 
 .lista-pokemon li label img {
@@ -80,11 +92,16 @@ body {
 }
 
 .lista-pokemon li label:hover {
+  color: #000;
   background: #eee; 
 }
 
 .lista-pokemon li input[type="radio"]:checked + label {
-  background: #82dcff;
+  background: #c6e1ff;
+}
+
+#resultados .lista-pokemon li label {
+  cursor: default;
 }
 
 .toolbar {

@@ -9,7 +9,8 @@ new Vue({
       pokemon: [],
       searchLimit: 15,
       pokemonName: '',
-      selectedPokemon: ''
+      selectedPokemon: '',
+      similarPokemon: []
     }
   },
   components: {
@@ -42,24 +43,34 @@ new Vue({
       }
     },
     getAllPokemon: function () {
-      fetch('./selectAll', {
-        method: 'GET'
-      })
-      .then(response => response.json())
-      .then(data => this.pokemon = data)
-      .catch(error => console.error(error))
+      fetch('./selectAll',)
+        .then(response => response.json())
+        .then(data => this.pokemon = data)
+        .catch(error => console.error(error))
     },
     promptPokemonName: function () {
       this.pokemonName = prompt('¿Cómo se llama el pokemon que vas a subir?')
     },
-    searchPokemon: function () {
+    searchSimilar: function () {
       fetch(`./similar/${this.selectedPokemon}/${this.searchLimit}`)
         .then(response => response.json())
-        .then(data => console.log(data))
+        .then(data => this.similarPokemon = this.formatSimilarResults(data))
         .catch(error => console.error(error))
+    },
+    formatSimilarResults: function (results) {
+      return results.map(result => {
+        const [id, distance] = result
+          .obtenernpokemonssimilares
+          .slice(1, -1)
+          .split(',')
+
+        const pokemon = this.pokemon.find(p => p.id == id)
+
+        return { ...pokemon, distance }
+      })   
     }
   },
-   mounted: function () {
-      this.getAllPokemon()
-    }
+  mounted: function () {
+    this.getAllPokemon()
+  }
 })
