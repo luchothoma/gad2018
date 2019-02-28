@@ -102,31 +102,62 @@ class VectorCaracteristico {
 	    return (object) $centroidRGBA;
 	}
 
+	private function colorPalletAplliedForEachPixelAvoidPixel($color): bool{
+		return boolval($pixelColor->alpha == 127);
+	}
+
 	//Calculo de ocurrencias de cada color de la paleta por cada pixel de la imagen
     private function colorPalletAplliedForEachPixel() {
+		$totalPixelsUsed = 0;
         foreach (range(0, ($this->_img->width()-1), 1) as $w) {
 		    foreach (range(0, ($this->_img->height()-1), 1) as $h) {
-
-                $res = $this->colorPalletPredominant($this->colorPallet() ,$this->_img->getPixelRGBA($w,$h));
-                $this->_vector[$res['index']] += 1;
-
+				$pixelColor = $this->_img->getPixelRGBA($w,$h);
+				if(!$this->colorPalletAplliedForEachPixelAvoidPixel($pixelColor)){
+					$res = $this->colorPalletPredominant($this->colorPallet() ,$pixelColor);
+					$this->_vector[$res['index']] += 1;
+					$totalPixelsUsed++;
+				}
 			}
 		}
-    }
+
+		foreach(range(0,19,1) as $i) {
+			$this->_vector[$i] = ($this->_vector[$i]/$totalPixelsUsed);
+		}
+	}
+	
+	private function colorPalletAplliedForEachSquareAvoidPixel($square3x3): bool{
+		$self = $this;
+		return boolval(array_reduce(
+			$a,
+			function($el) use ($self) {
+				return ($self->colorPalletAplliedForEachPixelAvoidPixel($el)? 0: 1); 
+			},
+			0
+		) >= 6);
+	}
 
     //Calculo de ocurrencias de cada color de la paleta por cada color (centroide) de region de pixels (3x3) de la imagen
     private function colorPalletAplliedForEachSquare(){
+		$totalSquaresUsed = 0;
     	foreach (range(1, ($this->_img->width()-2), 1) as $w) {
-			foreach (range(1, ($this->_img->height()-2), 1) as $h) {	 
-                $rgbaCentroide = $this->getCentroidOf3x3([
+			foreach (range(1, ($this->_img->height()-2), 1) as $h) {
+				$pointsSquare = [
                     $this->_img->getPixelRGBA($w-1,$h+1),  $this->_img->getPixelRGBA($w,$h+1),  $this->_img->getPixelRGBA($w+1,$h+1),
                     $this->_img->getPixelRGBA($w-1,$h),  $this->_img->getPixelRGBA($w,$h),  $this->_img->getPixelRGBA($w+1,$h),
                     $this->_img->getPixelRGBA($w-1,$h-1),  $this->_img->getPixelRGBA($w,$h-1),  $this->_img->getPixelRGBA($w+1,$h-1)
-                ]);                    
-                $res = $this->colorPalletPredominant($this->colorPallet() ,$rgbaCentroide);
-                $this->_vector[($this->colorPalletDimension()+$res['index'])] = $this->_vector[($this->colorPalletDimension()+$res['index'])] + 1;
-            }
-        }
+				];
+				if(! $this->colorPalletAplliedForEachSquareAvoidPixel($pointsSquare)){
+					$rgbaCentroide = $this->getCentroidOf3x3($pointsSquare);                    
+					$res = $this->colorPalletPredominant($this->colorPallet() ,$rgbaCentroide);
+					$this->_vector[($this->colorPalletDimension()+$res['index'])] = $this->_vector[($this->colorPalletDimension()+$res['index'])] + 1;
+					$totalSquaresUsed++;
+				}               
+			}
+		}
+		
+		foreach(range(20,39,1) as $i) {
+			$this->_vector[$i] = ($this->_vector[$i]/$totalSquaresUsed);
+		}
     }
 
     private function NormalizeResultVector(){
