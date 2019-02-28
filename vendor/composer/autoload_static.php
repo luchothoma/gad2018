@@ -22,6 +22,10 @@ class ComposerStaticInite0b5f085308fd28198094179cb92416d
             'Psr\\Container\\' => 14,
             'Phpml\\' => 6,
         ),
+        'J' => 
+        array (
+            'Josantonius\\File\\' => 17,
+        ),
         'I' => 
         array (
             'Interop\\Container\\' => 18,
@@ -52,6 +56,10 @@ class ComposerStaticInite0b5f085308fd28198094179cb92416d
         'Phpml\\' => 
         array (
             0 => __DIR__ . '/..' . '/php-ai/php-ml/src',
+        ),
+        'Josantonius\\File\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/josantonius/file/src',
         ),
         'Interop\\Container\\' => 
         array (
