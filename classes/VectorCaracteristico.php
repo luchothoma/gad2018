@@ -103,7 +103,7 @@ class VectorCaracteristico {
 	}
 
 	private function colorPalletAplliedForEachPixelAvoidPixel($color): bool{
-		return boolval($pixelColor->alpha == 127);
+		return ($color->alpha == 127);
 	}
 
 	//Calculo de ocurrencias de cada color de la paleta por cada pixel de la imagen
@@ -126,14 +126,11 @@ class VectorCaracteristico {
 	}
 	
 	private function colorPalletAplliedForEachSquareAvoidPixel($square3x3): bool{
-		$self = $this;
-		return boolval(array_reduce(
-			$a,
-			function($el) use ($self) {
-				return ($self->colorPalletAplliedForEachPixelAvoidPixel($el)? 0: 1); 
-			},
-			0
-		) >= 6);
+		$pixelesRellenados = 0;
+		foreach ($square3x3 as $color) {
+			$pixelesRellenados = $pixelesRellenados + ($this->colorPalletAplliedForEachPixelAvoidPixel($color)? 0: 1);
+		}
+		return ($pixelesRellenados >= 6);
 	}
 
     //Calculo de ocurrencias de cada color de la paleta por cada color (centroide) de region de pixels (3x3) de la imagen

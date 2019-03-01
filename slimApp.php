@@ -6,6 +6,7 @@ use \Slim\Http\UploadedFile;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Pixie as Pixie;
+use \Josantonius\File\File as File;
 
 $slim_configuration = require_once __DIR__ . '/slimConfig.php';
 $app = new App(['settings' => $slim_configuration]);
@@ -70,6 +71,9 @@ $app->post('/upload', function(Request $request, Response $response) {
         $filename = moveUploadedFile($directory, $uploadedFile);
         $nombre = $request->getParsedBody()['pokemonName'];
         
+    	require_once 'classes/Image.php';
+		require_once 'classes/VectorCaracteristico.php';
+
         $vector = createCharacteristicVector($directory.'/'.$filename);
 
         $data = array(
@@ -120,11 +124,39 @@ $app->get('/test', function(Request $request, Response $response) {
     */
 });
 
-
-function createCharacteristicVector(string $image_path){
+$app->get('/generate-dataset', function(Request $request, Response $response) {
 	require_once 'classes/Image.php';
 	require_once 'classes/VectorCaracteristico.php';
 
+	$directory = $this->get('settings')['upload_directory'];
+	foreach (File::getFilesFromDir($directory) as $id => $file) {
+		// Si no son los directorios './' o '../'
+		if (!in_array($file->getFilename(), ['.','..']))
+		{	
+			/*
+			$ti = microtime(true);
+	        */
+	        $data = array(
+			    'nombre' => explode('.',$file->getFilename())[0],
+			    'nombreArchivo' => $file->getFilename(),
+			);
+	       
+	        $vector = createCharacteristicVector($file->getPathname());
+
+			foreach ($vector as $index=> $value) {
+				$data['c'.($index+1)] = $value;
+			}
+			/*
+			$tf = microtime(true);
+			echo (($tf-$ti)/1000);
+			var_dump($data);
+			*/
+			$this->db->table('pokemon')->insert($data);
+		}
+	}
+});
+
+function createCharacteristicVector(string $image_path){
     $img = new Image($image_path);
     $vector = new VectorCaracteristico($img);
 
